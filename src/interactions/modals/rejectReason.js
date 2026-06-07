@@ -12,8 +12,8 @@ module.exports = async (interaction, client) => {
 
     try {
         const suggestion = await Suggestion.findOne({ guildId, suggestionId });
-        if (!suggestion) return interaction.reply({ content: '❌ Suggestion not found.', ephemeral: true });
-        if (suggestion.status !== 'Pending') return interaction.reply({ content: '❌ This suggestion has already been reviewed.', ephemeral: true });
+        if (!suggestion) return interaction.reply({ content: 'Suggestion not found.', ephemeral: true });
+        if (suggestion.status !== 'Pending') return interaction.reply({ content: 'This suggestion has already been reviewed.', ephemeral: true });
 
         suggestion.status = 'Rejected';
         suggestion.rejectedBy = interaction.user.id;
@@ -30,7 +30,7 @@ module.exports = async (interaction, client) => {
                 message.embeds[0].fields.filter(f => f.name !== 'Status')
             )
             .addFields(
-                { name: 'Status', value: '❌ Rejected' },
+                { name: 'Status', value: 'Rejected' },
                 { name: 'Rejected By', value: `${interaction.user}`, inline: true },
                 { name: 'Reason', value: reason },
                 { name: 'Date', value: `<t:${Math.floor(Date.now() / 1000)}:f>`, inline: true }
@@ -42,7 +42,7 @@ module.exports = async (interaction, client) => {
         try {
             const author = await interaction.client.users.fetch(suggestion.userId);
             const dmEmbed = new EmbedBuilder()
-                .setTitle('❌ Suggestion Rejected')
+                .setTitle('Suggestion Rejected')
                 .setDescription(`Your suggestion **#${suggestionId}** has been rejected.`)
                 .addFields(
                     { name: 'Title', value: suggestion.title },
@@ -81,10 +81,10 @@ module.exports = async (interaction, client) => {
             details: { authorId: suggestion.userId, reason }
         });
 
-        await interaction.reply({ content: `❌ Suggestion #${suggestionId} rejected.`, ephemeral: true });
+        await interaction.reply({ content: `Suggestion #${suggestionId} rejected.`, ephemeral: true });
 
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: '❌ Error rejecting suggestion.', ephemeral: true });
+        await interaction.reply({ content: 'Error rejecting suggestion.', ephemeral: true });
     }
 };

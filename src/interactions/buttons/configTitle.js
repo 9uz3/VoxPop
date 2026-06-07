@@ -8,7 +8,7 @@ module.exports = async (interaction) => {
     const titleInput = new TextInputBuilder()
         .setCustomId('panel_title_input')
         .setLabel('Panel Title')
-        .setPlaceholder('e.g., 💡 Suggestions Center')
+        .setPlaceholder('e.g., Suggestions Center')
         .setStyle(TextInputStyle.Short)
         .setRequired(true);
 

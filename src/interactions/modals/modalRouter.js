@@ -15,7 +15,7 @@ module.exports = async (interaction, client) => {
                 executorId: interaction.user.id,
                 details: { newTitle: title }
             });
-            await interaction.reply({ content: `✅ Panel title updated to: **${title}**`, ephemeral: true });
+            await interaction.reply({ content: `Panel title updated to: **${title}**`, ephemeral: true });
         } catch (error) {
             console.error(error);
             await interaction.reply({ content: 'Failed to update title.', ephemeral: true });
@@ -30,7 +30,7 @@ module.exports = async (interaction, client) => {
                 executorId: interaction.user.id,
                 details: { newDesc: desc }
             });
-            await interaction.reply({ content: '✅ Panel description updated successfully.', ephemeral: true });
+            await interaction.reply({ content: 'Panel description updated successfully.', ephemeral: true });
         } catch (error) {
             console.error(error);
             await interaction.reply({ content: 'Failed to update description.', ephemeral: true });

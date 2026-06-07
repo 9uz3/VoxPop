@@ -7,11 +7,11 @@ module.exports = async (interaction) => {
     const settings = await GuildSettings.findOne({ guildId });
 
     if (!settings || !settings.reviewerRoleId) {
-        return interaction.reply({ content: '❌ Reviewer role not configured.', ephemeral: true });
+        return interaction.reply({ content: 'Reviewer role not configured.', ephemeral: true });
     }
 
     if (!interaction.member.roles.cache.has(settings.reviewerRoleId)) {
-        return interaction.reply({ content: '❌ You do not have permission to review suggestions.', ephemeral: true });
+        return interaction.reply({ content: 'You do not have permission to review suggestions.', ephemeral: true });
     }
 
     const modal = new ModalBuilder()

@@ -45,7 +45,7 @@ module.exports = async (interaction, client) => {
             details: { newValue: values[0] }
         });
 
-        await interaction.reply({ content: `✅ Configuration updated successfully: **${action.replace('CONFIG_', '').replace('_', ' ')}**`, ephemeral: true });
+        await interaction.reply({ content: `Configuration updated successfully: **${action.replace('CONFIG_', '').replace('_', ' ')}**`, ephemeral: true });
     } catch (error) {
         console.error(error);
         await interaction.reply({ content: 'Failed to update configuration.', ephemeral: true });

@@ -10,7 +10,7 @@ const guildSettingsSchema = new mongoose.Schema({
     logRejectionChannelId: { type: String, default: null },
     logAdminChannelId: { type: String, default: null },
     reviewerRoleId: { type: String, default: null },
-    panelTitle: { type: String, default: '💡 Suggestions Center' },
+    panelTitle: { type: String, default: 'Suggestions Center' },
     panelDescription: { type: String, default: 'Send your ideas to improve the server.' }
 });
 

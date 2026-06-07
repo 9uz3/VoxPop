@@ -10,17 +10,17 @@ module.exports = async (interaction) => {
     const settings = await GuildSettings.findOne({ guildId });
 
     if (!settings || !settings.reviewerRoleId) {
-        return interaction.reply({ content: '❌ Reviewer role not configured.', ephemeral: true });
+        return interaction.reply({ content: 'Reviewer role not configured.', ephemeral: true });
     }
 
     if (!interaction.member.roles.cache.has(settings.reviewerRoleId)) {
-        return interaction.reply({ content: '❌ You do not have permission to review suggestions.', ephemeral: true });
+        return interaction.reply({ content: 'You do not have permission to review suggestions.', ephemeral: true });
     }
 
     try {
         const suggestion = await Suggestion.findOne({ guildId, suggestionId });
-        if (!suggestion) return interaction.reply({ content: '❌ Suggestion not found in database.', ephemeral: true });
-        if (suggestion.status !== 'Pending') return interaction.reply({ content: '❌ This suggestion has already been reviewed.', ephemeral: true });
+        if (!suggestion) return interaction.reply({ content: 'Suggestion not found in database.', ephemeral: true });
+        if (suggestion.status !== 'Pending') return interaction.reply({ content: 'This suggestion has already been reviewed.', ephemeral: true });
 
         suggestion.status = 'Approved';
         suggestion.approvedBy = interaction.user.id;
@@ -33,7 +33,7 @@ module.exports = async (interaction) => {
                 interaction.message.embeds[0].fields.filter(f => f.name !== 'Status')
             )
             .addFields(
-                { name: 'Status', value: '✅ Approved' },
+                { name: 'Status', value: 'Approved' },
                 { name: 'Approved By', value: `${interaction.user}`, inline: true },
                 { name: 'Date', value: `<t:${Math.floor(Date.now() / 1000)}:f>`, inline: true }
             );
@@ -44,7 +44,7 @@ module.exports = async (interaction) => {
         try {
             const author = await interaction.client.users.fetch(suggestion.userId);
             const dmEmbed = new EmbedBuilder()
-                .setTitle('✅ Suggestion Approved')
+                .setTitle('Suggestion Approved')
                 .setDescription(`Your suggestion **#${suggestionId}** has been approved.`)
                 .addFields(
                     { name: 'Title', value: suggestion.title },
@@ -79,10 +79,10 @@ module.exports = async (interaction) => {
             details: { authorId: suggestion.userId }
         });
 
-        await interaction.reply({ content: `✅ Suggestion #${suggestionId} approved!`, ephemeral: true });
+        await interaction.reply({ content: `Suggestion #${suggestionId} approved!`, ephemeral: true });
 
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: '❌ Error approving suggestion.', ephemeral: true });
+        await interaction.reply({ content: 'Error approving suggestion.', ephemeral: true });
     }
 };

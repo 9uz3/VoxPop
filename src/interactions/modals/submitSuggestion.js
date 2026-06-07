@@ -9,12 +9,12 @@ module.exports = async (interaction, client) => {
     const settings = await GuildSettings.findOne({ guildId });
 
     if (!settings || !settings.reviewChannelId) {
-        return interaction.reply({ content: '❌ Suggestions are currently disabled (Review channel not configured).', ephemeral: true });
+        return interaction.reply({ content: 'Suggestions are currently disabled (Review channel not configured).', ephemeral: true });
     }
 
     const reviewChannel = interaction.guild.channels.cache.get(settings.reviewChannelId);
     if (!reviewChannel) {
-        return interaction.reply({ content: '❌ Could not find the review channel.', ephemeral: true });
+        return interaction.reply({ content: 'Could not find the review channel.', ephemeral: true });
     }
 
     const title = interaction.fields.getTextInputValue('suggestion_title');
@@ -41,7 +41,7 @@ module.exports = async (interaction, client) => {
                 { name: 'Author', value: `${interaction.user} (${interaction.user.id})`, inline: true },
                 { name: 'Title', value: title },
                 { name: 'Description', value: description },
-                { name: 'Status', value: '🕒 Pending Review' }
+                { name: 'Status', value: 'Pending Review' }
             )
             .setColor(colors.warning)
             .setTimestamp()
@@ -50,11 +50,11 @@ module.exports = async (interaction, client) => {
         const row = new ActionRowBuilder().addComponents(
             new ButtonBuilder()
                 .setCustomId(`approve_${suggestionId}`)
-                .setLabel('✅ Approve')
+                .setLabel('Approve')
                 .setStyle(ButtonStyle.Success),
             new ButtonBuilder()
                 .setCustomId(`reject_${suggestionId}`)
-                .setLabel('❌ Reject')
+                .setLabel('Reject')
                 .setStyle(ButtonStyle.Danger)
         );
 
@@ -85,10 +85,10 @@ module.exports = async (interaction, client) => {
             details: { title }
         });
 
-        await interaction.reply({ content: `✅ Your suggestion has been submitted! (ID: #${suggestionId})`, ephemeral: true });
+        await interaction.reply({ content: `Your suggestion has been submitted! (ID: #${suggestionId})`, ephemeral: true });
 
     } catch (error) {
         console.error(error);
-        await interaction.reply({ content: '❌ An error occurred while submitting your suggestion.', ephemeral: true });
+        await interaction.reply({ content: 'An error occurred while submitting your suggestion.', ephemeral: true });
     }
 };
